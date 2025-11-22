@@ -6,6 +6,24 @@ The `SolutionScore` module provides comprehensive evaluation and scoring mechani
 
 **Location**: `ML/SolutionScore.py`
 
+## Description
+
+### What
+
+The SolutionScore module evaluates and scores ML configurations for comparative performance analysis, translating human-readable scoring expressions into executable evaluation code. It supports multi-objective optimization with weighted criteria, constraint-based filtering, and comprehensive performance metric calculation.
+
+### How
+
+It converts declarative scoring expressions (+++, ---, ~, boundaries) into Python evaluation code, validates data types and column availability, and calculates scores by executing compiled formulas against evaluation results. The system handles maximization, minimization, target optimization, and categorical constraints.
+
+### Where
+
+Used by SolutionFinder to rank and compare candidate configurations during optimization, providing quantitative assessment for differential evolution algorithm guidance. Processes experimenter outputs into standardized scores.
+
+### When
+
+Called during optimization to evaluate each tested configuration's quality and determine which candidates should be explored further.
+
 ## Core Functionality
 
 ### Primary Responsibilities

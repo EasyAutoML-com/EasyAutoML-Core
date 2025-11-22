@@ -1,0 +1,32 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.4.2, pluggy-1.6.0 -- C:\Users\Administrator\Documents\GITHUB-APS\REPO-APS\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+django: version: 5.2.3
+rootdir: C:\Users\Administrator\Documents\Repo-EAML-Core
+configfile: pytest.ini
+plugins: anyio-4.9.0, langsmith-0.4.1, django-4.11.1
+collecting ... collected 204 items
+
+tests/Tests All AI modules/unit/test_database_integrity.py::test_pretest_03_django_db_connection PASSED [  0%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_init PASSED [  0%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_machine_model PASSED [  1%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_user_model PASSED [  1%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_team_model PASSED [  2%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_logger PASSED [  2%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_logger_functionality PASSED [  3%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_all_models_access PASSED [  3%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_objects_interface PASSED [  4%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_queryset_methods PASSED [  4%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_field_access PASSED [  5%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_singleton_behavior PASSED [  5%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_meta_access PASSED [  6%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_string_representation PASSED [  6%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_verbose_names PASSED [  7%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_ordering PASSED [  7%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_permissions PASSED [  8%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_constraints PASSED [  8%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_indexes PASSED [  9%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_unique_together PASSED [  9%]
+tests/Tests All AI modules/unit/test_eaml_db_models.py::TestEasyAutoMLDBModels::test_eaml_db_models_model_index_together PASSED [ 10%]
+tests/Tests All AI modules/unit/test_encdec.py::TestEncDec::test_encdec_create_configuration PASSED [ 10%]
+tests/Tests All AI modules/unit/test_encdec.py::TestEncDec::test_encdec_load_configuration PASSED [ 11%]

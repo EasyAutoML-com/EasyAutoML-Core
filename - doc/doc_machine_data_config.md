@@ -6,6 +6,24 @@ The `MachineDataConfiguration` (MDC) module serves as the comprehensive data ana
 
 **Location**: `ML/MachineDataConfiguration.py`
 
+## Description
+
+### What
+
+The MachineDataConfiguration module analyzes dataset structure and performs comprehensive statistical profiling of all columns, including data type detection, input/output classification, and quality assessment. It manages transformations between user data formats and machine learning-ready formats while handling complex nested structures like JSON columns.
+
+### How
+
+It performs intelligent data type detection through pattern recognition and content analysis, calculates comprehensive statistical profiles (mean, std, quantiles, skewness, etc.), and handles JSON column expansion/reconstruction. The module implements dataframe_pre_encode() for ML preparation and dataframe_post_decode() for result interpretation.
+
+### Where
+
+Used by Machine during initialization to understand dataset structure, and by all modules needing column metadata including FeatureEngineeringConfiguration, EncDec, and NNEngine. Provides the foundational data understanding layer.
+
+### When
+
+Called first during machine creation to analyze and validate the dataset before any other ML pipeline components are initialized.
+
 ## Core Functionality
 
 ### Primary Responsibilities

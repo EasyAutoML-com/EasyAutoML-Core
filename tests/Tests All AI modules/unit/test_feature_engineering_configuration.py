@@ -147,16 +147,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_minimum",
@@ -187,16 +193,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_load",
@@ -230,16 +242,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_save",
@@ -273,16 +291,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_column_info",
@@ -320,16 +344,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_fet_logic",
@@ -370,16 +400,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_cost",
@@ -417,16 +453,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_invalid",
@@ -458,16 +500,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_mixed",
@@ -498,16 +546,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_delay",
@@ -563,16 +617,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_set_columns",
@@ -644,16 +704,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_store_fet",
@@ -718,16 +784,22 @@ class TestFeatureEngineeringConfiguration:
         # Get admin user for machine ownership
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
         
         machine = Machine(
             "__TEST_UNIT__fec_overview",

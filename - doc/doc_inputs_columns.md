@@ -6,6 +6,24 @@ The `InputsColumnsImportance` (ICI) module implements a sophisticated, model-awa
 
 **Location**: `ML/InputsColumnsImportance.py`
 
+## Description
+
+### What
+
+The InputsColumnsImportance module evaluates the predictive significance of each input column through model-aware perturbation analysis, quantifying how much each feature contributes to model predictions. It provides importance scores that guide computational resource allocation for feature engineering and optimization decisions.
+
+### How
+
+It systematically perturbs each input column by setting values to minimum and maximum extremes, measures the resulting degradation in model prediction performance, and calculates relative importance scores that sum to 1.0. The system uses trained neural networks to evaluate actual model behavior rather than statistical correlations.
+
+### Where
+
+Used by FeatureEngineeringConfiguration to allocate feature engineering budgets intelligently based on column importance. Integrates with NNEngine for model-based importance evaluation.
+
+### When
+
+Called after initial model training to guide feature engineering resource allocation and optimization priorities.
+
 ## Core Architecture
 
 ### Primary Responsibilities

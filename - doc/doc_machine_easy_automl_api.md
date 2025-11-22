@@ -6,6 +6,24 @@ The `MachineEasyAutoMLAPI` class provides a client interface for interacting wit
 
 **Location**: `ML/MachineEasyAutoMLAPI.py`
 
+## Description
+
+### What
+
+The MachineEasyAutoMLAPI module provides a client interface for interacting with remote EasyAutoML cloud services through REST APIs, enabling applications to leverage cloud-hosted ML infrastructure without local computational resources. It offers the same high-level functionality as MachineEasyAutoML but operates against remote services with local buffering for efficiency.
+
+### How
+
+It sends HTTP requests to remote API endpoints with authentication, buffers training experiences locally for batch processing, and automatically manages remote machine creation and training. The system handles various input formats and implements automatic buffer flushing when thresholds are reached.
+
+### Where
+
+Used by applications requiring cloud-hosted ML capabilities without local infrastructure, replacing local Machine and NNEngine with remote API calls. Integrates with remote AutoML services via REST endpoints.
+
+### When
+
+Called when creating machines or making predictions via remote AutoML services, with automatic buffer flushing during object destruction or threshold triggers.
+
 ## Core Functionality
 
 ### Primary Features

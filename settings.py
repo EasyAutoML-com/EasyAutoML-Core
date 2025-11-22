@@ -106,5 +106,20 @@ WSGI_APPLICATION = None
 MODEL_DECIMAL_FIELD_DEFAULT_MAX_DIGITS = 32
 MODEL_DECIMAL_FIELD_DEFAULT_DECIMAL_PLACES = 10
 
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
+
 
 

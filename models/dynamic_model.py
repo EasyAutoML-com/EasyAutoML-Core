@@ -17,14 +17,17 @@ def _get_alchemy_engine():
             # SQLite-specific connect args to prevent database locking
             connect_args = {
                 "check_same_thread": False,
-                "timeout": 30  # Wait up to 30 seconds for locks to clear
+                "timeout": 60,  # Wait up to 60 seconds for locks to clear
+                "isolation_level": None  # Autocommit mode to reduce lock contention
             }
             # SQLite doesn't support pool_recycle, echo_pool, or max_overflow
             _alchemy_engine = sq.create_engine(
                 settings.DATABASE_SQL, 
                 connect_args=connect_args,
                 # Use NullPool to avoid connection pooling issues with SQLite
-                poolclass=sq.pool.NullPool
+                poolclass=sq.pool.NullPool,
+                # Enable echo for debugging (can be disabled in production)
+                echo=False
             )
         else:
             # MySQL-specific connect args
@@ -57,120 +60,25 @@ class DynamicModel:
             from django.db import models
             from sqlalchemy import types as sqltypes
             
-            # Check if we're using SQLite
+            # For SQLite: Commit any pending Django transactions to release locks
+            from django.db import connection as django_connection
             engine_name = str(django_connection.settings_dict['ENGINE']).lower()
             
             if 'sqlite' in engine_name:
-                # For SQLite: Use Django's raw connection directly with pandas
-                # This avoids the "database is locked" error by sharing the same connection
-                django_connection.ensure_connection()
-                
-                # ========== TYPE CONVERSION FIX ==========
-                # Convert DataFrame column types to match Django model field types
-                # This prevents string numerics from being saved incorrectly
-                dataframe = dataframe.copy()  # Don't modify original
-                
-                # Get model fields to determine correct types
+                # Commit Django's transaction to release database lock
                 try:
-                    model_fields = cls._meta.get_fields()
-                    
-                    for field in model_fields:
-                        field_name = field.name
-                        
-                        # Skip if column not in DataFrame
-                        if field_name not in dataframe.columns:
-                            continue
-                        
-                        # Convert based on Django field type
-                        if isinstance(field, models.DecimalField) or isinstance(field, models.FloatField):
-                            # Convert to numeric (handles strings like '-1.41230370133529' → float)
-                            try:
-                                dataframe[field_name] = pd.to_numeric(
-                                    dataframe[field_name], 
-                                    errors='coerce'  # Convert invalid values to NaN
-                                )
-                            except Exception as e:
-                                logger.warning(f"Could not convert {field_name} to numeric: {e}")
-                        
-                        elif isinstance(field, models.BooleanField):
-                            # Ensure boolean type
-                            try:
-                                dataframe[field_name] = dataframe[field_name].astype(bool)
-                            except Exception as e:
-                                logger.warning(f"Could not convert {field_name} to boolean: {e}")
-                        
-                        elif isinstance(field, (models.IntegerField, models.BigIntegerField, models.AutoField)):
-                            # Ensure integer type
-                            try:
-                                dataframe[field_name] = pd.to_numeric(
-                                    dataframe[field_name], 
-                                    errors='coerce',
-                                    downcast='integer'
-                                )
-                            except Exception as e:
-                                logger.warning(f"Could not convert {field_name} to integer: {e}")
-                
-                except Exception as e:
-                    logger.warning(f"Could not apply type conversions: {e}")
-                # ========== END TYPE CONVERSION FIX ==========
-                
-                # Build dtype dict to ensure proper column types in SQLite schema
-                # Use SQLAlchemy types instead of strings for better type preservation
-                dtype_dict = {}
-                
-                # Ensure Line_ID is treated as INTEGER, not DECIMAL
-                if 'Line_ID' in dataframe.columns:
-                    dtype_dict['Line_ID'] = sqltypes.INTEGER()
-                
-                # Map DataFrame columns to SQLAlchemy types based on actual dtypes
-                # This is critical - pandas to_sql() needs explicit SQLAlchemy type hints
-                for col in dataframe.columns:
-                    if col in dtype_dict:
-                        continue  # Already set
-                    
-                    col_dtype = dataframe[col].dtype
-                    
-                    # Boolean columns
-                    if col.startswith('IsFor') or col.startswith('Is') or col_dtype == 'bool':
-                        dtype_dict[col] = sqltypes.Boolean()
-                    # Numeric columns - Use SQLAlchemy REAL/Float type
-                    elif pd.api.types.is_float_dtype(col_dtype):
-                        dtype_dict[col] = sqltypes.Float()  # SQLAlchemy Float type
-                    elif pd.api.types.is_integer_dtype(col_dtype):
-                        dtype_dict[col] = sqltypes.INTEGER()
-                    # String/object columns - Use TEXT type
-                    elif pd.api.types.is_object_dtype(col_dtype) or pd.api.types.is_string_dtype(col_dtype):
-                        dtype_dict[col] = sqltypes.TEXT()
-                
-                # Check if Line_ID is in the index
-                if dataframe.index.name == 'Line_ID':
-                    # Line_ID is the index - specify index_label
-                    dataframe.to_sql(
-                        name=name_of_table,
-                        con=django_connection.connection,
-                        if_exists="append",
-                        method="multi",
-                        index=True,
-                        index_label='Line_ID',
-                        dtype=dtype_dict if dtype_dict else None
-                    )
-                else:
-                    # Regular append with explicit dtypes
-                    dataframe.to_sql(
-                        name=name_of_table,
-                        con=django_connection.connection,
-                        if_exists="append",
-                        method="multi",
-                        dtype=dtype_dict if dtype_dict else None
-                    )
-            else:
-                # For MySQL and other databases: Use SQLAlchemy engine as before
-                dataframe.to_sql(
-                    name=name_of_table,
-                    con=_get_alchemy_engine(),
-                    if_exists="append",
-                    method="multi"
-                )
+                    django_connection.commit()
+                except Exception:
+                    pass  # Ignore if no transaction is active
+            
+            # Use SQLAlchemy engine for all databases (SQLite, MySQL, PostgreSQL)
+            # This ensures consistent and proper type handling across all database backends
+            dataframe.to_sql(
+                name=name_of_table,
+                con=_get_alchemy_engine(),
+                if_exists="append",
+                method="multi"
+            )
         except Exception as error:
             logger.error(f"There was a problem during dataframe.to_sql execution in table '{name_of_table}' : {error} ")
 

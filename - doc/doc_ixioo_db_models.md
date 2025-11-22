@@ -6,6 +6,24 @@ The `EasyAutoMLDBModels` module serves as a critical bridge between the EasyAuto
 
 **Location**: `ML/EasyAutoML_DB_Models.py`
 
+## Description
+
+### What
+
+The EasyAutoMLDBModels module provides centralized access to Django database models for the ML pipeline, serving as a bridge between machine learning components and the web application database. It handles Django environment setup and imports all necessary models (Machine, User, Team, Billing, etc.) for database operations.
+
+### How
+
+It dynamically locates the Django project directory, configures the Django environment, and imports all required database models as instance attributes. The module establishes database connections and cursors for efficient data operations while maintaining separation between ML logic and web application structure.
+
+### Where
+
+Used by all ML modules requiring database access including Machine, NNEngine, FeatureEngineeringConfiguration, and logging systems. Imported at the start of database-dependent operations.
+
+### When
+
+Imported at module initialization whenever database connectivity is needed for ML operations.
+
 ## Core Functionality
 
 ### Primary Purpose

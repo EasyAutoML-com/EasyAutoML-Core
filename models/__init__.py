@@ -42,9 +42,35 @@ def __getattr__(name):
     elif name == 'EncDecConfiguration':
         from .encdec_configuration import EncDecConfiguration
         return EncDecConfiguration
+    elif name == 'ConsultingRequest':
+        from .consulting import ConsultingRequest
+        return ConsultingRequest
+    elif name == 'Server':
+        from .server import Server
+        return Server
+    elif name == 'Operation':
+        from .billing import Operation
+        return Operation
+    elif name == 'Credit':
+        from .billing import Credit
+        return Credit
+    elif name == 'Debit':
+        from .billing import Debit
+        return Debit
+    elif name == 'CreditIXIOO':
+        from .billing import CreditIXIOO
+        return CreditIXIOO
+    elif name == 'DebitIXIOO':
+        from .billing import DebitIXIOO
+        return DebitIXIOO
+    elif name == 'Work':
+        from .work import Work
+        return Work
+    elif name == 'Billing':
+        from .machine_billing import Billing
+        return Billing
     # Models that don't exist yet - return None instead of raising error
-    elif name in ['Server', 'Operation', 'Credit', 'Debit', 'CreditIXIOO', 'DebitIXIOO', 
-                  'ConsultingRequest', 'Work', 'MachineBilling', 'Billing']:
+    elif name in ['MachineBilling']:
         return None
     else:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
@@ -65,4 +91,21 @@ __all__ = [
     'DataLinesOperation',
     'MachineTableLockWrite',
     'EncDecConfiguration',
+    
+    # Consulting
+    'ConsultingRequest',
+    
+    # Server
+    'Server',
+    
+    # Billing
+    'Operation',
+    'Credit',
+    'Debit',
+    'CreditIXIOO',
+    'DebitIXIOO',
+    'Billing',
+    
+    # Work
+    'Work',
 ]

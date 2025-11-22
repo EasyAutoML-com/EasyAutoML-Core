@@ -6,6 +6,24 @@ The `NNEngine` class serves as the core neural network execution engine in the E
 
 **Location**: `ML/NNEngine.py`
 
+## Description
+
+### What
+
+The NNEngine module orchestrates neural network training, evaluation, and prediction operations, managing the complete ML pipeline from data preprocessing through model deployment. It coordinates all ML components (MDC, ICI, FEC, EncDec, NNConfiguration) and handles model lifecycle including multi-cycle training with progressive optimization.
+
+### How
+
+It initializes and coordinates all pipeline components in dependency order, executes multi-cycle training with component reconfiguration between cycles, and provides both trial training for optimization and full training for production. The system manages data encoding/decoding, model building from NNConfiguration, and comprehensive evaluation with noise robustness testing.
+
+### Where
+
+Used by Machine for model training and by prediction APIs for inference operations. Integrates with all ML components and serves as the execution engine for WorkProcessor training jobs.
+
+### When
+
+Initialized after data configuration is complete and called for training operations and prediction requests throughout the model lifecycle.
+
 ## Core Functionality
 
 ### Primary Responsibilities

@@ -6,6 +6,24 @@ The `EncDec` class is a critical component in the EasyAutoML machine learning pi
 
 **Location**: `ML/EncDec.py`
 
+## Description
+
+### What
+
+The EncDec module transforms data between human-readable formats and neural network-compatible formats, serving as the critical bridge in the ML pipeline. It manages encoding configurations that map pre-encoded columns to their Feature Engineering Template (FET) transformations, ensuring data is properly formatted for neural network consumption and predictions are decoded back to interpretable results.
+
+### How
+
+It applies configured Feature Engineering Templates to each column, transforming data through encode_for_ai() which produces 0-1 normalized values, and decode_from_ai() which intelligently merges multiple FET predictions back to human-readable format. The system uses LRU caching for performance optimization and handles complex data types including datetime splitting.
+
+### Where
+
+Used by NNEngine during training and prediction pipelines to prepare data for neural networks and interpret model outputs. Also utilized by Machine during configuration setup and by prediction APIs for end-to-end data transformation.
+
+### When
+
+Called during model training for encoding input/output data and during inference for encoding inputs and decoding prediction results.
+
 ## Core Functionality
 
 ### Primary Operations

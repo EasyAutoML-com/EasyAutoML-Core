@@ -6,6 +6,24 @@ The `Experimenter` module implements a sophisticated experimental framework for 
 
 **Location**: `ML/Experimenter.py`
 
+## Description
+
+### What
+
+The Experimenter module evaluates machine learning configurations through controlled experiments, measuring the performance impact of different neural network architectures and feature engineering selections. It provides a standardized framework for testing parameter combinations and returning quantitative performance metrics.
+
+### How
+
+It executes trial training with candidate configurations through the _do_single() method, capturing loss, accuracy, and resource utilization metrics. The system supports batch evaluation of multiple configurations and implements robust error handling with graceful degradation for failed experiments.
+
+### Where
+
+Used by SolutionFinder during optimization to evaluate candidate configurations, and by FeatureEngineeringConfiguration to test different FET combinations. Integrates with NNEngine for trial training infrastructure.
+
+### When
+
+Called during neural network architecture search and feature engineering optimization phases to quantitatively assess configuration quality.
+
 ## Core Architecture
 
 ### Abstract Base Class: Experimenter

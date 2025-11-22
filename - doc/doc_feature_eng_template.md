@@ -6,6 +6,24 @@ The `FeatureEngineeringTemplate` (FET) module is the foundational transformation
 
 **Location**: `ML/FeatureEngineeringTemplate.py`
 
+## Description
+
+### What
+
+The FeatureEngineeringTemplate module provides a comprehensive framework of over 50 specialized transformation classes for automated feature engineering across different data types (numeric, categorical, text, temporal). Each FET implements standardized encode/decode methods with explicit cost calculations and compatibility assessments, enabling intelligent data preprocessing and feature extraction.
+
+### How
+
+It implements an abstract base class with encode() and decode() methods that each FET subclass overrides with data type-specific transformations (e.g., min-max scaling, one-hot encoding, datetime feature extraction). Each FET includes configuration creation from data analysis, serialization for persistence, and cost/compatibility assessment methods.
+
+### Where
+
+Used by FeatureEngineeringConfiguration to select optimal transformations and by EncDec to execute the actual data encoding and decoding operations. Individual FET instances are instantiated and configured based on column characteristics.
+
+### When
+
+Applied during data encoding before model training and during decoding after predictions, with FET selection occurring during feature engineering configuration.
+
 ## Core Architecture
 
 ### Abstract Base Class: FeatureEngineeringTemplate

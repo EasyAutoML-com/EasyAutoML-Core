@@ -51,46 +51,98 @@ class EasyAutoMLDBModels:
         # Import database connections only after Django setup
         from django.db import connection, connections
         
-        # Import from centralized models package
+        # ============================================================================
+        # COMPATIBILITY LAYER: Core Version vs Full WWW Version
+        # ============================================================================
+        # This section handles differences between two deployment versions:
+        # - CORE VERSION: Minimal set of models (User, Team, Machine, etc.)
+        # - FULL WWW VERSION: Complete set including Server, Operation, Billing, etc.
+        #
+        # Strategy: Try to import each model. If it doesn't exist in the current
+        # version, set it to None. This allows the same codebase to work in both
+        # environments without modification.
+        # ============================================================================
+        
+        # Import CORE models (always available in both versions)
         from models import (
             User, Team, Machine,
             EasyAutoMLLogger, Graph, NNModel, DataLinesOperation, 
             MachineTableLockWrite, EncDecConfiguration
         )
-        # Set placeholders for models that don't exist yet
+        
+        # Import WWW-ONLY models (may not exist in core version)
+        # These models are only available in the full WWW deployment
+        # Try to import each one individually, fall back to None if not available
         Server = None
         Operation = None
         ConsultingRequest = None
         Work = None
         Billing = None
         MachineBilling = None
+        
+        try:
+            from models import Server
+        except ImportError:
+            pass  # Server model not available in core version
+        
+        try:
+            from models import Operation
+        except ImportError:
+            pass  # Operation model not available in core version
+        
+        try:
+            from models import ConsultingRequest
+        except ImportError:
+            pass  # ConsultingRequest model not available in core version
+        
+        try:
+            from models import Work
+        except ImportError:
+            pass  # Work model not available in core version
+        
+        try:
+            from models import Billing
+        except ImportError:
+            pass  # Billing model not available in core version
+        
+        try:
+            from models import MachineBilling
+        except ImportError:
+            pass  # MachineBilling model not available in core version
 
         # Store database connections - delay cursor creation to avoid hanging
         self.connections = connections
         self.cursor = None  # Lazy initialize on first use
         
+        # ============================================================================
         # Register all models as instance attributes for backward compatibility
+        # ============================================================================
+        # This allows code to access models via: db_models.User, db_models.Machine, etc.
+        # Models set to None (from core version) can be checked: if db_models.Server: ...
+        # ============================================================================
+        
+        # CORE models (always available)
         self.User = User
         self.Machine = Machine
         self.MachineTableLockWrite = MachineTableLockWrite
         self.DataLinesOperation = DataLinesOperation
         self.EasyAutoMLLogger = EasyAutoMLLogger
-        self.Server = Server  # None - model doesn't exist yet
-        self.Operation = Operation  # None - model doesn't exist yet
         self.Team = Team
-        self.Work = Work  # None - model doesn't exist yet
+        self.Graph = Graph
+        self.NNModel = NNModel
+        self.EncDecConfiguration = EncDecConfiguration
         
-        # Optional models that may not be available in all environments
-        if 'Graph' in locals():
-            self.Graph = Graph
-        if 'NNModel' in locals():
-            self.NNModel = NNModel
-        if 'ConsultingRequest' in locals():
-            self.ConsultingRequest = ConsultingRequest
-        if 'EncDecConfiguration' in locals():
-            self.EncDecConfiguration = EncDecConfiguration
-        if 'Billing' in locals():
-            self.Billing = Billing
+        # WWW-ONLY models (None in core version, actual model class in WWW version)
+        self.Server = Server
+        self.Operation = Operation
+        self.Work = Work
+        self.ConsultingRequest = ConsultingRequest
+        self.Billing = Billing
+        self.MachineBilling = MachineBilling
+        
+        # Aliases for backward compatibility with legacy code
+        self.Consulting = ConsultingRequest  # Alias: ConsultingRequest
+        self.Logger = EasyAutoMLLogger  # Alias: EasyAutoMLLogger
     
     @property
     def logger(self):

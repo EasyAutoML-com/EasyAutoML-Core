@@ -119,16 +119,23 @@ class TestNNConfiguration:
         """Helper method to get admin user for machine ownership"""
         from django.contrib.auth import get_user_model
         User = get_user_model()
-        admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
-            defaults={
-                'first_name': 'Test',
-                'last_name': 'EasyAutoML',
-                'is_staff': True,
-                'is_superuser': True,
-                'is_active': True,
-            }
-        )
+        
+        # Use filter().first() to handle duplicate users gracefully
+        admin_user = User.objects.filter(
+            email='SuperSuperAdmin@easyautoml.com'
+        ).first()
+        
+        # Create if doesn't exist
+        if not admin_user:
+            admin_user = User.objects.create(
+                email='SuperSuperAdmin@easyautoml.com',
+                first_name='Test',
+                last_name='EasyAutoML',
+                is_staff=True,
+                is_superuser=True,
+                is_active=True,
+            )
+        
         return admin_user
     
     @pytest.mark.django_db

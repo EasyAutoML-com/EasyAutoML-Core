@@ -6,6 +6,24 @@ The `NNConfiguration` module manages neural network architecture specifications 
 
 **Location**: `ML/NNConfiguration.py`
 
+## Description
+
+### What
+
+The NNConfiguration module manages neural network architecture specifications and hyperparameters, defining layer structures, neuron counts, optimizers, and training parameters. It provides structured configuration management with validation, serialization, and dynamic adaptation to changing input/output dimensions.
+
+### How
+
+It uses NNShape class to represent network topology with percentage-based neuron allocation, validates configurations against resource constraints, and builds Keras-compatible model specifications. The system supports both manual configuration and automated discovery through SolutionFinder integration.
+
+### Where
+
+Used by NNEngine to build and configure neural network models, and by ExperimenterNNConfiguration during architecture optimization. Integrates with Machine for configuration persistence.
+
+### When
+
+Created during model initialization and updated during architecture optimization phases before neural network training begins.
+
 ## Core Functionality
 
 ### Primary Responsibilities

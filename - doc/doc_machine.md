@@ -6,6 +6,24 @@ The `Machine` class is the central orchestrator in the EasyAutoML.com system, ma
 
 **Location**: `ML/Machine.py`
 
+## Description
+
+### What
+
+The Machine class orchestrates the complete machine learning lifecycle from creation to deployment, serving as the central coordinator for all ML components and the primary interface between users, data, and the underlying infrastructure. It manages data storage, configuration persistence, access control, and resource allocation across the entire ML pipeline.
+
+### How
+
+It creates dynamic database tables for machine-specific data storage, coordinates initialization of all ML components (MDC, ICI, FEC, EncDec, NNEngine) in proper dependency order, and manages configuration state through re-run flags. The system handles data ingestion with intelligent partitioning and provides flexible data access patterns.
+
+### Where
+
+Used as the primary entry point by all applications and higher-level interfaces (MachineEasyAutoML, APIs), and referenced by all ML components for data access and configuration management. Serves as the foundation for the entire AutoML system.
+
+### When
+
+Created at the start of any ML workflow and persists throughout the model lifecycle from initial data ingestion through training to production deployment.
+
 ## Core Architecture
 
 ### Primary Responsibilities

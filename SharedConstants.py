@@ -116,7 +116,7 @@ Super Admin must  always ID=1 but better to use : EasyAutoMLDBModels().User.get_
 Super Admin team must always TEAM=1 but better to use : EasyAutoMLDBModels().Team.get_super_admin_team.id
 """
 
-SUPER_ADMIN_EASYAUTOML_EMAIL = "SuperSuperAdmin@easyautoml.com"
+SUPER_ADMIN_EASYAUTOML_EMAIL = "SuperAdmin@easyautoml.com"
 SUPER_ADMIN_EASYAUTOML_TEAM_NAME = "__Team-EasyAutoML.com__"   # super Admin Team = EasyAutoMLDBModels().Team.get_super_admin_team
 SUPER_ADMIN_TEAM_MEMBERS_EASYAUTOML_PASSWORD = "*Easy*Auto*ML*" # password for all super users
 # super user to create first - will be in team SUPER_ADMIN_EASYAUTOML_TEAM_NAME and password = SUPER_ADMIN_TEAM_MEMBERS_EASYAUTOML_PASSWORD

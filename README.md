@@ -563,7 +563,7 @@ tests/
 ✅ Multi-modal learning (text + numeric)  
 ✅ Classification and regression  
 ✅ Model persistence and loading
-
+ 
 ---
 
 ## 🤝 Contributing
@@ -635,26 +635,7 @@ EasyAutoML Core intelligently handles various data types automatically:
 **Automatic Detection**: The system automatically detects data types and applies appropriate encoding, normalization, and feature engineering.
 
 ---
-
-## 🔧 Configuration
-
-### Environment Variables
-
-Create a `.env` file in the project root (see [`OPEN_SOURCE_CHECKLIST.md`](OPEN_SOURCE_CHECKLIST.md)):
-
-```bash
-# Django settings
-DJANGO_SECRET_KEY=your-secret-key-here
-DEBUG=True  # Set to False in production
-
-# Database (optional - defaults to SQLite)
-USE_SQLITE=True
-# DB_NAME=easyautoml
-# DB_USER=your_user
-# DB_PASSWORD=your_password
-# DB_HOST=localhost
-# DB_PORT=3306
-```
+ 
 
 ### Machine Learning Configuration
 

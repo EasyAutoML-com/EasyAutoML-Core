@@ -6,6 +6,24 @@ The `FeatureEngineeringConfiguration` (FEC) module is the intelligent orchestrat
 
 **Location**: `ML/FeatureEngineeringConfiguration.py`
 
+## Description
+
+### What
+
+The FeatureEngineeringConfiguration module manages intelligent selection and configuration of Feature Engineering Templates (FETs) across all dataset columns, implementing budget-aware optimization that balances predictive performance gains against computational costs. It orchestrates the automated feature engineering process by allocating resources based on column importance and optimizing FET combinations for maximum model performance.
+
+### How
+
+It allocates computational budget proportionally to column importance scores from InputsColumnsImportance, then uses SolutionFinder with ExperimenterColumnFETSelector to discover optimal FET combinations for each column. The system supports three modes: load existing configuration, apply minimum transformations, or perform full optimization with budget constraints.
+
+### Where
+
+Used by Machine during initialization to set up feature engineering, and by NNEngine when configuring the ML pipeline. Integrates with InputsColumnsImportance for budget allocation and SolutionFinder for optimization.
+
+### When
+
+Called after MachineDataConfiguration is complete and before EncDec setup in the ML pipeline initialization sequence.
+
 ## Core Architecture
 
 ### Primary Responsibilities

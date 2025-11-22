@@ -6,6 +6,24 @@ The `SolutionFinder` module implements sophisticated optimization algorithms for
 
 **Location**: `ML/SolutionFinder.py`
 
+## Description
+
+### What
+
+The SolutionFinder module discovers optimal machine learning configurations through systematic search algorithms, employing differential evolution to efficiently explore parameter spaces and identify high-performing solutions. It coordinates with experimenters to evaluate configurations and uses intelligent seeding from previous optimization results.
+
+### How
+
+It employs scipy's differential evolution algorithm with adaptive parameters based on model availability, uses MachineEasyAutoML for intelligent search seeding from historical results, and evaluates candidates through experimenter integration with LRU caching. The system supports both fast exploration and thorough optimization modes.
+
+### Where
+
+Used by FeatureEngineeringConfiguration for FET selection optimization and by NNConfiguration for neural network architecture search. Integrates with Experimenter framework for configuration evaluation.
+
+### When
+
+Called during configuration optimization phases to find best parameter combinations for neural networks and feature engineering.
+
 ## Core Functionality
 
 ### Primary Responsibilities

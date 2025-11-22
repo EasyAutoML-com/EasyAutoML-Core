@@ -6,6 +6,24 @@ The `MachineEasyAutoML` class provides a simplified, user-friendly interface to 
 
 **Location**: `ML/MachineEasyAutoML.py`
 
+## Description
+
+### What
+
+The MachineEasyAutoML module provides a simplified, user-friendly AutoML interface with progressive learning capabilities that start with experimenter-based predictions and seamlessly transition to full neural network models as data accumulates. It abstracts away ML pipeline complexity while providing intelligent fallbacks and automatic model management.
+
+### How
+
+It implements adaptive prediction strategy that chooses between experimenter and neural network modes based on model availability and performance, buffers training experiences locally, and automatically creates and trains Machine instances when sufficient data is available. The system uses performance-based thresholds to determine optimal prediction method selection.
+
+### Where
+
+Used by applications requiring easy-to-use ML without managing pipeline complexity, serving as a high-level wrapper around Machine and NNEngine. Integrates with Experimenter framework for initial predictions.
+
+### When
+
+Called for predictions with automatic fallback between experimenter and neural network modes, and during learning to accumulate training experiences.
+
 ## Core Functionality
 
 ### Primary Features
