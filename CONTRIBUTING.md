@@ -84,7 +84,7 @@ USE_SQLITE=True
 
 ```bash
 # Run tests to verify everything works
-python -m pytest "tests/Tests All AI modules/" -v
+python -m pytest "tests/Tests All AI modules - Core/" -v
 
 # Quick import test
 python -c "from ML.MachineEasyAutoML import MachineEasyAutoML; print('✅ Setup successful!')"
@@ -94,8 +94,9 @@ python -c "from ML.MachineEasyAutoML import MachineEasyAutoML; print('✅ Setup 
 
 - **Code Location**: Main ML code is in `ML/` directory
 - **Models**: Django models are in `models/` directory
-- **Tests**: Add tests in `tests/Tests All AI modules/unit/`
+- **Tests**: Add tests in `tests/Tests All AI modules - Core/unit/`
 - **Documentation**: Update docs in `doc/` directory
+- **Fixes & Reports**: Store fix summaries, test reports, and bug documentation in `"- doc fixes, updates, bugs/"` directory.
 
 ---
 
@@ -114,15 +115,15 @@ python -c "from ML.MachineEasyAutoML import MachineEasyAutoML; print('✅ Setup 
 All code contributions must include tests:
 
 ```bash
-# Create tests in tests/Tests All AI modules/unit/
+# Create tests in tests/Tests All AI modules - Core/unit/
 # Test file naming: test_<module_name>.py
 # Test function naming: test_<functionality>
 
 # Run your tests before submitting
-python -m pytest "tests/Tests All AI modules/unit/test_your_module.py" -v
+python -m pytest "tests/Tests All AI modules - Core/unit/test_your_module.py" -v
 
 # Run all tests to ensure nothing breaks
-python -m pytest "tests/Tests All AI modules/" -v
+python -m pytest "tests/Tests All AI modules - Core/" -v
 ```
 
 ### Documentation

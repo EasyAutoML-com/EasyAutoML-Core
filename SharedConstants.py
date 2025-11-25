@@ -107,9 +107,6 @@ EXPERIMENTER_FET_PREFIX_FET_NAME = "Experiment_FET_"
 
 #=====================================================
 """
-To reset database : python manage.py flush
-To do migration : cd WWW / python manage.py makemigrations / python manage.py migrate  
-Then at post-migration signal we generate the Admin user and the Admin team
 To get SUPER ADMIN  : user_model.get_super_admin().id
 To get SUPER ADMIN ID  :  team_model.get_super_admin_team().first().ID
 Super Admin must  always ID=1 but better to use : EasyAutoMLDBModels().User.get_super_admin( ).id
@@ -118,12 +115,11 @@ Super Admin team must always TEAM=1 but better to use : EasyAutoMLDBModels().Tea
 
 SUPER_ADMIN_EASYAUTOML_EMAIL = "SuperAdmin@easyautoml.com"
 SUPER_ADMIN_EASYAUTOML_TEAM_NAME = "__Team-EasyAutoML.com__"   # super Admin Team = EasyAutoMLDBModels().Team.get_super_admin_team
-SUPER_ADMIN_TEAM_MEMBERS_EASYAUTOML_PASSWORD = "*Easy*Auto*ML*" # password for all super users
+SUPER_ADMIN_TEAM_MEMBERS_EASYAUTOML_PASSWORD = "*Easy*Auto*ML*" # TEST CREDENTIAL - password for all super users
 # super user to create first - will be in team SUPER_ADMIN_EASYAUTOML_TEAM_NAME and password = SUPER_ADMIN_TEAM_MEMBERS_EASYAUTOML_PASSWORD
 SUPER_ADMIN_EASYAUTOML_TEAM_MEMBERS = (
     (SUPER_ADMIN_EASYAUTOML_EMAIL, "SuperAdmin", "EasyAutoML"),
-    ("Laurent@EasyAutoML.com", "Laurent", "Bruère")
-)
+    )
 
 
 #=====================================================

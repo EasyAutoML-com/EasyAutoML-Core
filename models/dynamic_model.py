@@ -53,34 +53,81 @@ class DynamicModel:
         name_of_table = cls._meta.db_table
 
         try:
-            # Use Django's database connection to avoid SQLite locking issues
-            # pandas can work with raw DB-API connections
             from django.db import connection as django_connection
             import pandas as pd
-            from django.db import models
-            from sqlalchemy import types as sqltypes
+            import time
+            import sqlite3
             
-            # For SQLite: Commit any pending Django transactions to release locks
-            from django.db import connection as django_connection
             engine_name = str(django_connection.settings_dict['ENGINE']).lower()
             
+            # For SQLite: Try SQLAlchemy first (for proper type handling), fallback to Django connection
+            # This is critical in test environments where Django holds transaction locks
             if 'sqlite' in engine_name:
-                # Commit Django's transaction to release database lock
-                try:
-                    django_connection.commit()
-                except Exception:
-                    pass  # Ignore if no transaction is active
-            
-            # Use SQLAlchemy engine for all databases (SQLite, MySQL, PostgreSQL)
-            # This ensures consistent and proper type handling across all database backends
-            dataframe.to_sql(
-                name=name_of_table,
-                con=_get_alchemy_engine(),
-                if_exists="append",
-                method="multi"
-            )
+                max_retries = 5
+                retry_delay = 0.2
+                use_django_connection = False
+                
+                # Strategy: Try SQLAlchemy first (better type handling), fallback to Django connection if locked
+                for attempt in range(max_retries):
+                    try:
+                        if use_django_connection:
+                            # Fallback: Use Django's connection (same connection = no lock conflict)
+                            # But: pandas writes types as strings, so we need to handle this
+                            dataframe.to_sql(
+                                name=name_of_table,
+                                con=django_connection.connection,
+                                if_exists="append",
+                                method="multi",
+                                index=False
+                            )
+                        else:
+                            # Primary: Use SQLAlchemy (proper type handling)
+                            # Try to commit Django transaction first to release lock
+                            try:
+                                django_connection.commit()
+                            except Exception:
+                                pass  # Ignore if commit fails
+                            
+                            dataframe.to_sql(
+                                name=name_of_table,
+                                con=_get_alchemy_engine(),
+                                if_exists="append",
+                                method="multi"
+                            )
+                        # Success - break out of retry loop
+                        break
+                    except (sqlite3.OperationalError, Exception) as e:
+                        error_msg = str(e).lower()
+                        if "database is locked" in error_msg:
+                            if attempt < max_retries - 1:
+                                # Wait and retry
+                                time.sleep(retry_delay * (attempt + 1))
+                                # After 2 attempts with SQLAlchemy, switch to Django connection
+                                if attempt >= 2 and not use_django_connection:
+                                    use_django_connection = True
+                                    logger.warning(f"Switching to Django connection for table '{name_of_table}' due to lock conflicts")
+                                continue
+                            else:
+                                # Last attempt failed - log and re-raise
+                                logger.error(f"There was a problem during dataframe.to_sql execution in table '{name_of_table}' after {max_retries} attempts: {e}")
+                                raise
+                        else:
+                            # Different error - log and re-raise immediately
+                            logger.error(f"There was a problem during dataframe.to_sql execution in table '{name_of_table}' : {e}")
+                            raise
+            else:
+                # For MySQL/PostgreSQL: Use SQLAlchemy for proper type handling
+                # These databases handle concurrent connections better
+                dataframe.to_sql(
+                    name=name_of_table,
+                    con=_get_alchemy_engine(),
+                    if_exists="append",
+                    method="multi"
+                )
         except Exception as error:
-            logger.error(f"There was a problem during dataframe.to_sql execution in table '{name_of_table}' : {error} ")
+            logger.error(f"There was a problem during dataframe.to_sql execution in table '{name_of_table}' : {error}")
+            # Re-raise the error so calling code knows it failed
+            raise
 
     @classmethod
     def mark_lines(cls, field_name_to_set, field_value_to_set, where_clause=None, list_with_ids=None):
