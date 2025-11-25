@@ -395,34 +395,79 @@ def iris_dataframe():
 # CLEANUP FIXTURES
 # ============================================================================
 
-@pytest.fixture(autouse=True)
-def db_cleanup():
+def _delete_test_unit_machines():
     """
-    Automatic cleanup fixture that runs after each test.
-    
-    This fixture:
-    1. Runs before each test (setup)
-    2. Yields control to the test
-    3. Runs after each test (cleanup) to remove test data
-    
-    It deletes all machines with names starting with '__TEST_UNIT__'
+    Helper function to delete all machines matching '__TEST_UNIT_*' pattern.
+    Uses ML.Machine class to properly clean up both Django model and data tables.
     """
-    # Setup: nothing to do before test
-    yield
-    
-    # Cleanup: remove test machines
     try:
-        from models.machine import Machine
+        from models.machine import Machine as MachineModel
+        from ML.Machine import Machine
         from django.db import transaction
         
         with transaction.atomic():
-            test_machines = Machine.objects.filter(name__startswith='__TEST_UNIT__')
+            # Find all machines with names starting with '__TEST_UNIT_'
+            test_machines = MachineModel.objects.filter(machine_name__startswith='__TEST_UNIT_')
             count = test_machines.count()
+            
             if count > 0:
-                test_machines.delete()
+                # Load each machine using ML.Machine class and delete properly
+                for db_machine in test_machines:
+                    try:
+                        # Load machine using ML.Machine class to ensure proper cleanup
+                        machine = Machine(db_machine.id)
+                        machine.delete()
+                    except Exception as e:
+                        # If loading fails, try direct Django deletion as fallback
+                        try:
+                            db_machine.delete()
+                        except Exception:
+                            pass  # Ignore individual deletion errors
     except Exception:
         # Ignore cleanup errors (database might not be available)
         pass
+
+
+@pytest.fixture(scope="session", autouse=True)
+def session_cleanup_start():
+    """
+    Session-scoped fixture that runs at the beginning of the test session.
+    Deletes all machines matching '__TEST_UNIT_*' pattern before tests start.
+    """
+    _delete_test_unit_machines()
+    yield
+    # Cleanup at end of session is handled by session_cleanup_end
+
+
+@pytest.fixture(scope="session", autouse=True)
+def session_cleanup_end():
+    """
+    Session-scoped fixture that runs at the end of the test session.
+    Deletes all machines matching '__TEST_UNIT_*' pattern after all tests complete.
+    """
+    yield
+    _delete_test_unit_machines()
+
+
+@pytest.fixture(autouse=True)
+def db_cleanup():
+    """
+    Automatic cleanup fixture that runs before and after each test.
+    
+    This fixture:
+    1. Runs before each test (setup) - deletes test machines
+    2. Yields control to the test
+    3. Runs after each test (cleanup) - deletes test machines
+    
+    It deletes all machines with names starting with '__TEST_UNIT_'
+    """
+    # Setup: cleanup before test
+    _delete_test_unit_machines()
+    
+    yield
+    
+    # Cleanup: remove test machines after test
+    _delete_test_unit_machines()
 
 
 # ============================================================================
