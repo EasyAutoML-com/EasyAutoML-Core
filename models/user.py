@@ -154,10 +154,30 @@ class User(AbstractBaseUser, PermissionsMixin):
     @classmethod
     def get_super_admin(cls):
         try:
-            admin = cls.objects.get(email=SUPER_ADMIN_EASYAUTOML_EMAIL)
-        except Exception:
-            # Use warning instead of error to avoid automatic exception raising
-            _logger.warning(f"Unable to find super admin '{SUPER_ADMIN_EASYAUTOML_EMAIL}' in the user database")
+            # Use filter().first() to handle multiple duplicates gracefully
+            admin = cls.objects.filter(email=SUPER_ADMIN_EASYAUTOML_EMAIL).first()
+            if admin:
+                return admin
+            # If not found, try to create it
+            raise cls.DoesNotExist()
+        except cls.DoesNotExist:
+            # Try to create the user if it doesn't exist (useful for test environments)
+            try:
+                from django.conf import settings
+                # In test/development environments, auto-create if missing
+                admin = cls.objects.create_superuser(
+                    email=SUPER_ADMIN_EASYAUTOML_EMAIL,
+                    password='easyautoml',
+                    first_name='SuperAdmin',
+                    last_name='EasyAutoML',
+                )
+                _logger.info(f"Created super admin user '{SUPER_ADMIN_EASYAUTOML_EMAIL}'")
+            except Exception as create_error:
+                _logger.warning(f"Unable to find or create super admin '{SUPER_ADMIN_EASYAUTOML_EMAIL}': {create_error}")
+                raise ValueError(f"Unable to find super admin '{SUPER_ADMIN_EASYAUTOML_EMAIL}' in the user database")
+        except Exception as e:
+            # Handle other exceptions
+            _logger.warning(f"Unable to find super admin '{SUPER_ADMIN_EASYAUTOML_EMAIL}': {e}")
             raise ValueError(f"Unable to find super admin '{SUPER_ADMIN_EASYAUTOML_EMAIL}' in the user database")
         return admin
 

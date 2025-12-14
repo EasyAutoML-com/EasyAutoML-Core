@@ -84,7 +84,7 @@ class TestMachine3:
         if User is None:
             from django.contrib.auth import get_user_model
             User = get_user_model()
-            User = User.objects.get(email='SuperSuperAdmin@easyautoml.com')
+            User = User.objects.get(email='SuperAdmin@easyautoml.com')
         
         print(f'   Dataset shape: {DATASET_TEST.shape}')
         print(f'   Columns: {list(DATASET_TEST.columns)}')

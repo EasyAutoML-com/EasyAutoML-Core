@@ -150,13 +150,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -196,13 +196,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -245,13 +245,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -294,13 +294,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -347,13 +347,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -403,13 +403,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -456,13 +456,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -503,13 +503,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -549,13 +549,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -620,13 +620,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -707,13 +707,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,
@@ -787,13 +787,13 @@ class TestFeatureEngineeringConfiguration:
         
         # Use filter().first() to handle duplicate users gracefully
         admin_user = User.objects.filter(
-            email='SuperSuperAdmin@easyautoml.com'
+            email='SuperAdmin@easyautoml.com'
         ).first()
         
         # Create if doesn't exist
         if not admin_user:
             admin_user = User.objects.create(
-                email='SuperSuperAdmin@easyautoml.com',
+                email='SuperAdmin@easyautoml.com',
                 first_name='Test',
                 last_name='EasyAutoML',
                 is_staff=True,

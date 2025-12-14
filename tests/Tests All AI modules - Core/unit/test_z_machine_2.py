@@ -76,7 +76,7 @@ class TestMachine2:
         if test_user is None:
             from django.contrib.auth import get_user_model
             User = get_user_model()
-            test_user = User.objects.get(email='SuperSuperAdmin@easyautoml.com')
+            test_user = User.objects.get(email='SuperAdmin@easyautoml.com')
 
         print('\n' + '=' * 80)
         print('TEST MACHINE 2: MachineEasyAutoML with Experimenter Workflow')

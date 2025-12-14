@@ -440,6 +440,9 @@ class Machine:
                 fields.append(f'"{field.column}" INTEGER')
             elif isinstance(field, models.FloatField):
                 fields.append(f'"{field.column}" REAL')
+            elif isinstance(field, models.DecimalField):
+                # Use REAL so SQLite returns numeric values instead of TEXT, avoiding Decimal conversion errors
+                fields.append(f'"{field.column}" REAL')
             elif isinstance(field, models.TextField):
                 fields.append(f'"{field.column}" TEXT')
             elif isinstance(field, models.CharField):

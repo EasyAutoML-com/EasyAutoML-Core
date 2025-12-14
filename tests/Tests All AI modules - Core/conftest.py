@@ -512,7 +512,7 @@ def machine_factory(test_database_with_verification):
         
         # Get or create admin user
         admin_user, _ = User.objects.get_or_create(
-            email='SuperSuperAdmin@easyautoml.com',
+            email='SuperAdmin@easyautoml.com',
             defaults={
                 'first_name': 'Test',
                 'last_name': 'EasyAutoML',
@@ -567,7 +567,7 @@ def get_admin_user():
     Get or create the admin user for tests with ID=1.
     
     This function:
-    1. Gets or creates a superuser with ID=1 and email 'SuperSuperAdmin@easyautoml.com'
+    1. Gets or creates a superuser with ID=1 and email 'SuperAdmin@easyautoml.com'
     2. Sets password if the user was just created
     3. Returns the user instance
     
@@ -583,7 +583,7 @@ def get_admin_user():
     
     # Clean up duplicate users first
     try:
-        duplicate_users = User.objects.filter(email='SuperSuperAdmin@easyautoml.com')
+        duplicate_users = User.objects.filter(email='SuperAdmin@easyautoml.com')
         if duplicate_users.count() > 1:
             # Keep the first one (preferably ID=1), delete others
             keep_user = duplicate_users.filter(id=1).first() or duplicate_users.first()
@@ -618,9 +618,9 @@ def get_admin_user():
     # Try to get user with ID=1 first
     try:
         admin_user = User.objects.get(id=1)
-        if admin_user.email != 'SuperSuperAdmin@easyautoml.com':
+        if admin_user.email != 'SuperAdmin@easyautoml.com':
             # Update email if different
-            admin_user.email = 'SuperSuperAdmin@easyautoml.com'
+            admin_user.email = 'SuperAdmin@easyautoml.com'
             admin_user.is_staff = True
             admin_user.is_superuser = True
             admin_user.is_active = True
@@ -644,7 +644,7 @@ def get_admin_user():
     
     # Try to get by email - use filter().first() to avoid MultipleObjectsReturned
     try:
-        admin_user = User.objects.filter(email='SuperSuperAdmin@easyautoml.com').first()
+        admin_user = User.objects.filter(email='SuperAdmin@easyautoml.com').first()
         if admin_user:
             # If user exists but doesn't have ID=1, we'll use it as-is
             if not admin_user.has_usable_password():
@@ -655,7 +655,7 @@ def get_admin_user():
         # If ORM fails, try raw SQL to check
         try:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT id FROM user WHERE email=?", ('SuperSuperAdmin@easyautoml.com',))
+                cursor.execute("SELECT id FROM user WHERE email=?", ('SuperAdmin@easyautoml.com',))
                 row = cursor.fetchone()
                 if row:
                     user_id = row[0]
@@ -677,7 +677,7 @@ def get_admin_user():
                 # Table is empty, we can set ID=1
                 admin_user = User(
                     id=1,
-                    email='SuperSuperAdmin@easyautoml.com',
+                    email='SuperAdmin@easyautoml.com',
                     first_name='Test',
                     last_name='EasyAutoML',
                     is_staff=True,
@@ -699,7 +699,7 @@ def get_admin_user():
                     cursor.execute("""
                         INSERT INTO user (id, email, password, first_name, last_name, is_staff, is_superuser, is_active, date_joined)
                         VALUES (1, ?, ?, ?, ?, 1, 1, 1, datetime('now'))
-                    """, ('SuperSuperAdmin@easyautoml.com', password_hash, 'Test', 'EasyAutoML'))
+                    """, ('SuperAdmin@easyautoml.com', password_hash, 'Test', 'EasyAutoML'))
                     # Now try to load via ORM
                     admin_user = User.objects.get(id=1)
                     return admin_user
@@ -709,7 +709,7 @@ def get_admin_user():
     # Fallback: create normally
     try:
         admin_user = User.objects.create(
-            email='SuperSuperAdmin@easyautoml.com',
+            email='SuperAdmin@easyautoml.com',
             first_name='Test',
             last_name='EasyAutoML',
             is_staff=True,
@@ -858,10 +858,10 @@ def machine_with_all_configs(test_database_with_verification):
                             cursor.execute("""
                                 INSERT INTO user (id, email, password, first_name, last_name, is_staff, is_superuser, is_active, date_joined)
                                 VALUES (1, ?, ?, ?, ?, 1, 1, 1, datetime('now'))
-                            """, ('SuperSuperAdmin@easyautoml.com', password_hash, 'Test', 'EasyAutoML'))
+                            """, ('SuperAdmin@easyautoml.com', password_hash, 'Test', 'EasyAutoML'))
                         except Exception as e:
                             # User might already exist with different ID, try to find it
-                            cursor.execute("SELECT id FROM user WHERE email=?", ('SuperSuperAdmin@easyautoml.com',))
+                            cursor.execute("SELECT id FROM user WHERE email=?", ('SuperAdmin@easyautoml.com',))
                             row = cursor.fetchone()
                             if row:
                                 user_id = row[0]
@@ -910,7 +910,7 @@ def machine_with_all_configs(test_database_with_verification):
                         cursor.execute("""
                             INSERT INTO user (id, email, password, first_name, last_name, is_staff, is_superuser, is_active, is_super_admin, date_joined)
                             VALUES (1, ?, ?, ?, ?, 1, 1, 1, 1, datetime('now'))
-                        """, ('SuperSuperAdmin@easyautoml.com', password_hash, 'Test', 'EasyAutoML'))
+                        """, ('SuperAdmin@easyautoml.com', password_hash, 'Test', 'EasyAutoML'))
                         # Reload user via ORM
                         from django.contrib.auth import get_user_model
                         User = get_user_model()

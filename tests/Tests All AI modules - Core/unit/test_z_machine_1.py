@@ -68,7 +68,7 @@ class TestMachine1:
         if User is None:
             from django.contrib.auth import get_user_model
             User = get_user_model()
-            User = User.objects.get(email='SuperSuperAdmin@easyautoml.com')
+            User = User.objects.get(email='SuperAdmin@easyautoml.com')
         
         # Get the CSV file path
         # __file__ is in tests/Tests All AI modules/unit/test_z_machine_1.py
